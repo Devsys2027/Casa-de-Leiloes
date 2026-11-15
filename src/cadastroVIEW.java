@@ -1,12 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author Adm
- */
 public class cadastroVIEW extends javax.swing.JFrame {
 
     /**
@@ -35,6 +28,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         btnCadastrar = new javax.swing.JButton();
         btnProdutos = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +64,13 @@ public class cadastroVIEW extends javax.swing.JFrame {
             }
         });
 
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,7 +86,6 @@ public class cadastroVIEW extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
@@ -102,7 +102,12 @@ public class cadastroVIEW extends javax.swing.JFrame {
                                 .addComponent(cadastroValor, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(37, 37, 37)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(btnSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -127,7 +132,9 @@ public class cadastroVIEW extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addComponent(btnProdutos)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnProdutos)
+                    .addComponent(btnSalvar))
                 .addGap(22, 22, 22))
         );
 
@@ -157,6 +164,43 @@ public class cadastroVIEW extends javax.swing.JFrame {
         listagemVIEW listagem = new listagemVIEW(); 
         listagem.setVisible(true);
     }//GEN-LAST:event_btnProdutosActionPerformed
+
+    
+    // Método criado na mesma classe cadastroVIEW
+    private void limparCampos() {
+        cadastroNome.setText("");
+        cadastroValor.setText("");
+        cadastroNome.requestFocus(); // Opcional: coloca o cursor de volta no primeiro campo
+}
+        
+    
+    
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+// Exemplo conceitual para o botão Salvar
+try {
+    // 1. Coletar dados dos campos da tela
+    ProdutosDTO objItem = new ProdutosDTO();
+    objItem.setNome(cadastroNome.getText());
+    // definir outros atributos...
+
+    // 2. Chamar a DAO para salvar no banco
+    ProdutosDAO dao = new ProdutosDAO();
+    dao.cadastrarProduto(objItem);
+
+    // 3. Mensagem de sucesso
+    JOptionPane.showMessageDialog(this, "Item cadastrado com sucesso!");
+    
+    
+
+    
+    // Limpar campos ou atualizar listagem
+    limparCampos();
+} catch (Exception e) {
+    // Mensagem de erro
+    JOptionPane.showMessageDialog(this, "Erro ao cadastrar item: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+}
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,6 +240,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnProdutos;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JTextField cadastroNome;
     private javax.swing.JTextField cadastroValor;
     private javax.swing.JLabel jLabel1;

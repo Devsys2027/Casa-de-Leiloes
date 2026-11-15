@@ -1,6 +1,7 @@
-
+import java.util.List;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -188,6 +189,29 @@ public class listagemVIEW extends javax.swing.JFrame {
         });
     }
 
+    public void listarValores() {
+    try {
+        ProdutosDAO dao = new ProdutosDAO();
+        DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
+        model.setNumRows(0); // Limpa a tabela
+        
+        List<ProdutosDTO> lista = dao.listarProdutos();
+        for (ProdutosDTO item : lista) {
+            model.addRow(new Object[]{
+                item.getId(),
+                item.getNome(),
+                item.getValor(),
+                item.getStatus()
+            });
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Erro ao listar dados: " + e.getMessage());
+    }
+}
+
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVendas;
     private javax.swing.JButton btnVender;
